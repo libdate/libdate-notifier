@@ -15,16 +15,5 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
         }
     };
 
-    // Send a message to the device corresponding to the provided
-    // registration token.
-    admin.messaging().sendToDevice(request.params.token, payload)
-        .then((response) => {
-            console.log("Successfully sent message:", response);
-            return response;
-        })
-        .catch((error) => {
-            console.log("Error sending message:", error);
-        });
-
-    response.send("Hello from Firebase!");
+    return admin.messaging().sendToDevice(request.query.token, payload);
 });
